@@ -1,1 +1,47 @@
-<p>login works!</p>
+<div class="w-full h-screen grid grid-cols-2">
+  <div class="p-12 flex flex-col justify-between h-full
+    bg-linear-to-br from-blue-900 via-blue-800 to-blue-950
+     text-white">
+    <div class="grid grid-cols-1 gap-4">
+      <div class="text-3xl capitalize font-semibold tracking-wide">GlobalPay</div>
+      <div class="tracking-wide text-gray-100">Global pay simplified</div>
+    </div>
+    <div class="grid grid-cols-1 gap-4">
+      <div class="uppercase text-sm tracking-wide">payroll for india-usa-uk</div>
+      <div class="bg-white w-16 h-1 rounded"></div>
+    </div>
+  </div>
+  <div class="flex flex-col justify-center items-center h-full">
+    <div class="w-3/5">
+      <div class="mb-6">
+        <div class="capitalize text-2xl font-medium tracking-wide mb-2">welcome back</div>
+        <div class="text-sm capitalize">please enter your details to access admin portal</div>
+      </div>
+      <form class="flex flex-col gap-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-1">
+          <label for="email" class="text-sm capitalize tracking-wide">email</label>
+          <input type="email" class="border border-gray-800 outline-none px-2 py-2 text-sm" formControlName="email"/>
+        </div>
+        <div class="flex flex-col gap-1">
+          <label for="password" class="text-sm capitalize tracking-wide">password</label>
+          <input type="password" class="border border-gray-800 outline-none px-2 py-2 text-sm"
+                 formControlName="password"/>
+        </div>
+        <div class="mt-4">
+          <button class="h-full bg-blue-950 text-white w-full uppercase py-3 text-xs">login</button>
+        </div>
+      </form>
+      <div class="text-sm flex justify-center gap-2 items-center py-4 text-gray-400 font-normal">
+        <div
+          class="size-4 bg-gray-400"
+          style="
+            mask: url('/icons/lock.svg') center / contain no-repeat;
+            -webkit-mask: url('/icons/lock.svg') center / contain no-repeat;
+          "
+        ></div>
+        <div>Secure enterprise portal</div>
+      </div>
+    </div>
+  </div>
+</div>
+
