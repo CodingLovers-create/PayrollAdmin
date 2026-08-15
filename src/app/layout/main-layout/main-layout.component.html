@@ -1,15 +1,15 @@
-<app-header />
+<app-sidebar />
 
-<div class="app-container">
+<div class="app-container lg:ml-64 flex flex-col min-h-screen bg-background">
 
-  <app-sidebar />
+  <app-header />
 
-  <main class="content">
+  <main class="content flex-1 p-margin-mobile md:p-margin-desktop">
 
     <router-outlet />
 
   </main>
 
-</div>
+  <app-footer />
 
-<app-footer />
+</div>

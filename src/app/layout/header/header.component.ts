@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { APP_CONFIG } from '../../core/config/app.config';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,15 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  appName = APP_CONFIG.name;
+  userName = 'Admin User';
+  isProfileMenuOpen = false;
+
+  toggleProfileMenu(): void {
+    this.isProfileMenuOpen = !this.isProfileMenuOpen;
+  }
+
+  closeProfileMenu(): void {
+    this.isProfileMenuOpen = false;
+  }
 }

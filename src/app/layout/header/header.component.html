@@ -1,1 +1,52 @@
-<p>header works!</p>
+<header class="header flex items-center justify-between gap-4 px-margin-mobile md:px-margin-desktop sticky top-0 z-30 w-full h-16 bg-surface-bright border-b border-outline-variant">
+  <div class="flex items-center gap-6 flex-1 min-w-0">
+    <p class="font-headline-sm text-headline-sm font-bold text-primary lg:hidden whitespace-nowrap">{{appName}}</p>
+
+    <div class="relative flex-1 max-w-md hidden sm:block">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+      <input
+        type="text"
+        class="search-employee w-full pl-10 pr-4 py-2 bg-surface border border-outline-variant rounded font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
+        placeholder="Search Employees, IDs....">
+    </div>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <button
+      type="button"
+      class="w-8 h-8 flex items-center justify-center text-secondary hover:text-primary transition-colors rounded-full hover:bg-surface-container-low"
+      aria-label="Help">
+      <span class="material-symbols-outlined">help</span>
+    </button>
+
+    <div class="profile-container relative border-l border-outline-variant pl-3 ml-1">
+      <button
+        type="button"
+        class="flex items-center gap-2 rounded-full p-1 hover:bg-surface-container-low transition-colors"
+        [attr.aria-expanded]="isProfileMenuOpen"
+        aria-haspopup="true"
+        (click)="toggleProfileMenu()">
+        <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant bg-surface-container flex items-center justify-center text-secondary">
+          <span class="material-symbols-outlined text-[20px]">account_circle</span>
+        </div>
+        <span class="material-symbols-outlined text-[18px] text-secondary">{{ isProfileMenuOpen ? 'expand_less' : 'expand_more' }}</span>
+      </button>
+
+      @if (isProfileMenuOpen) {
+        <div class="fixed inset-0 z-40" (click)="closeProfileMenu()"></div>
+
+        <div class="absolute right-0 top-full mt-2 w-56 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1)] z-50 overflow-hidden">
+          <div class="px-4 py-3 border-b border-outline-variant">
+            <p class="font-body-md text-body-md font-semibold text-on-surface truncate">{{ userName }}</p>
+          </div>
+          <button
+            type="button"
+            class="logout w-full flex items-center gap-2 px-4 py-2.5 text-secondary hover:text-primary hover:bg-surface-container-low transition-colors font-label-md text-label-md uppercase">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+            Logout
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</header>

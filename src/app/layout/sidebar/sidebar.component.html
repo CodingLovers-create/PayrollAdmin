@@ -1,1 +1,21 @@
-<p>sidebar works!</p>
+<nav class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 bg-surface-container-lowest border-r border-outline-variant shadow-sm z-40">
+  <div class="navLinks flex items-center px-6 h-20 border-b border-outline-variant">
+    <div class="flex flex-col">
+      <p class="font-headline-md text-headline-md font-bold text-primary leading-tight">{{appName}}</p>
+      <p class="font-label-md text-label-md text-secondary uppercase tracking-wider">{{appSubName}}</p>
+    </div>
+  </div>
+
+  <div class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+    @for(sidebar of sidebarLinks; track sidebar.label){
+      <a [routerLink]="sidebar.route"
+        routerLinkActive
+        #rla="routerLinkActive"
+        class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-colors duration-150"
+        [class]="rla.isActive ? activeLinkClasses : inactiveLinkClasses">
+        <span class="material-symbols-outlined">{{sidebar.icon}}</span>
+        {{sidebar.label}}
+      </a>
+    }
+  </div>
+</nav>
