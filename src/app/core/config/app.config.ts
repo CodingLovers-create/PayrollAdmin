@@ -1,6 +1,6 @@
 
 export const APP_CONFIG = {
-    name: 'GlobalPay',
+    name: 'Payroll Admin',
     subName: 'Enterprise Payroll',
     year: 2026
   };

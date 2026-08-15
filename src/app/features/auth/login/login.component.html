@@ -3,8 +3,8 @@
     bg-linear-to-br from-blue-900 via-blue-800 to-blue-950
      text-white">
     <div class="grid grid-cols-1 gap-4">
-      <div class="text-3xl capitalize font-semibold tracking-wide">GlobalPay</div>
-      <div class="tracking-wide text-gray-100">Global pay simplified</div>
+      <div class="text-3xl capitalize font-semibold tracking-wide">{{appName}}</div>
+      <div class="tracking-wide text-gray-100">{{appSubName}}</div>
     </div>
     <div class="grid grid-cols-1 gap-4">
       <div class="uppercase text-sm tracking-wide">payroll for india-usa-uk</div>
@@ -14,8 +14,8 @@
   <div class="flex flex-col justify-center items-center h-full">
     <div class="w-3/5">
       <div class="mb-6">
-        <div class="capitalize text-2xl font-medium tracking-wide mb-2">welcome back</div>
-        <div class="text-sm capitalize">please enter your details to access admin portal</div>
+        <div class="capitalize text-2xl font-medium tracking-wide mb-2">{{appName}}</div>
+        <div class="text-sm capitalize">please enter your details</div>
       </div>
       <form class="flex flex-col gap-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-col gap-1">
