@@ -1,1 +1,128 @@
-<p>dashboard works!</p>
+<div class="flex flex-col gap-6 w-full h-full pb-8">
+
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div>
+      <app-breadcrumb [items]="breadcrumbItems"></app-breadcrumb>
+      <h1 class="font-headline-lg text-headline-lg text-primary leading-tight">Good morning, Ankit.</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant mt-1">Here's your payroll overview.</p>
+    </div>
+    <div class="flex items-center gap-3 w-full sm:w-auto">
+      <app-date-picker 
+        [(value)]="selectedMonth">
+      </app-date-picker>
+      <app-dropdown 
+        [options]="countryOptions" 
+        [selectedValue]="selectedCountry" 
+        (selectionChange)="selectedCountry = $event"
+        placeholder="All Countries">
+      </app-dropdown>
+    </div>
+  </div>
+
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    @for(card of summaryCards$ | async; track card.title) {
+      <app-summary-card
+        [title]="card.title"
+        [mainValue]="card.mainValue"
+        [subValue]="card.subValue"
+        [badgeText]="card.badgeText"
+        [badgeIcon]="card.badgeIcon"
+        [badgeType]="card.badgeType"
+        [borderType]="card.borderType">
+      </app-summary-card>
+    }
+  </div>
+
+
+  <div class="flex flex-col xl:flex-row gap-6">
+
+    <div class="flex-1 flex flex-col gap-6 min-w-0">
+      
+
+      <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">Payroll Overview</h2>
+          <button class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors uppercase tracking-wider">
+            View Full Report
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
+
+        @if (chartData$ | async; as chartData) {
+          <div class="bg-surface-container-low rounded-xl h-[300px] w-full p-4 relative border border-outline-variant">
+            <app-bar-chart 
+              [labels]="chartData.labels" 
+              [data]="chartData.data" 
+              [backgroundColor]="chartData.backgroundColor"
+              [hoverBackgroundColor]="chartData.hoverBackgroundColor"
+              datasetLabel="Payroll Cost">
+            </app-bar-chart>
+          </div>
+        }
+      </div>
+
+
+      <div class="flex flex-col gap-4">
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">Country Summary</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
+          @for(country of countryCards$ | async; track country.countryCode) {
+            <app-country-summary-card
+              [countryCode]="country.countryCode"
+              [countryName]="country.countryName"
+              [flagCode]="country.flagCode"
+              [employees]="country.employees"
+              [status]="country.status"
+              [statusType]="country.statusType"
+              [totalCostValue]="country.totalCostValue"
+              [totalCostSubValue]="country.totalCostSubValue"
+              [borderType]="country.borderType"
+              [showReviewButton]="country.showReviewButton">
+            </app-country-summary-card>
+          }
+        </div>
+      </div>
+    </div>
+
+
+    <div class="w-full xl:w-[360px] flex-shrink-0 flex flex-col gap-6">
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm flex flex-col h-full">
+        <div class="p-5 border-b border-outline-variant flex justify-between items-center">
+          <h2 class="font-headline-sm text-headline-sm text-on-surface">Recent Activity</h2>
+          <button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-8 h-8 rounded-full hover:bg-surface-container-low">
+            <span class="material-symbols-outlined">filter_list</span>
+          </button>
+        </div>
+        
+        <div class="p-6 flex-1 overflow-y-auto">
+          <div class="relative border-l-2 border-outline-variant/50 ml-2 space-y-6">
+            @for(activity of recentActivity$ | async; track activity.id) {
+              <div class="relative pl-5">
+                <div class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full ring-4 ring-surface-container-lowest"
+                     [ngClass]="{
+                       'bg-emerald-500': activity.iconType === 'success',
+                       'bg-amber-500': activity.iconType === 'warning',
+                       'bg-error': activity.iconType === 'danger',
+                       'bg-outline-variant': activity.iconType === 'info'
+                     }"></div>
+                <div>
+                  <h4 class="font-headline-sm text-sm text-on-surface leading-tight">{{ activity.title }}</h4>
+                  @if (activity.showReviewButton) {
+                    <button class="mt-2 text-[11px] font-bold text-error bg-error-container/50 px-2 py-1 rounded hover:bg-error-container transition-colors">Review details</button>
+                  }
+                  <p class="font-body-sm text-xs text-on-surface-variant mt-1" [ngClass]="{'mt-1.5': activity.showReviewButton}">{{ activity.subtitle }}</p>
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="p-3 border-t border-outline-variant">
+          <button class="w-full py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-colors tracking-wider uppercase">
+            View All Activity
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

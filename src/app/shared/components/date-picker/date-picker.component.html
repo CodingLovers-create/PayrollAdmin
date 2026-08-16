@@ -1,1 +1,40 @@
-<p>date-picker works!</p>
+<div class="relative inline-block text-left w-full sm:w-auto">
+  <button 
+    type="button" 
+    (click)="togglePicker()"
+    class="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors whitespace-nowrap">
+    {{ formattedDate }}
+    <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+  </button>
+
+  @if (isOpen) {
+    <div class="absolute left-0 mt-2 w-[280px] rounded-xl shadow-lg bg-surface-container-lowest border border-outline-variant z-50 p-4 flex flex-col gap-4">
+      
+      <!-- Header / Year Selector -->
+      <div class="flex justify-between items-center px-1">
+        <button (click)="changeYear(-1)" class="w-8 h-8 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+        </button>
+        <span class="font-bold text-base text-on-surface">{{ currentYear }}</span>
+        <button (click)="changeYear(1)" class="w-8 h-8 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+        </button>
+      </div>
+      
+      <!-- Months Grid -->
+      <div class="grid grid-cols-3 gap-2">
+        @for (month of months; track month.index) {
+          <button 
+            (click)="selectMonth(month.index)"
+            class="py-2 text-sm font-medium rounded-lg transition-colors"
+            [ngClass]="{
+              'bg-primary text-on-primary shadow-sm': isSelected(month.index),
+              'text-on-surface hover:bg-surface-container-low': !isSelected(month.index)
+            }">
+            {{ month.shortName }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>

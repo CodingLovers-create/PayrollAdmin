@@ -1,1 +1,21 @@
-<p>breadcrumb works!</p>
+<nav aria-label="Breadcrumb" class="flex items-center text-sm mb-4">
+  <ol class="flex items-center space-x-2">
+    @for(item of items; track item.label; let last = $last) {
+      <li class="flex items-center">
+        @if (item.url && !last) {
+          <a [routerLink]="item.url" class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors">
+            {{ item.label }}
+          </a>
+        } @else {
+          <span class="font-label-md text-label-md text-on-surface" [attr.aria-current]="last ? 'page' : null">
+            {{ item.label }}
+          </span>
+        }
+        
+        @if (!last) {
+          <span class="material-symbols-outlined text-[16px] text-outline-variant mx-1">chevron_right</span>
+        }
+      </li>
+    }
+  </ol>
+</nav>

@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import {ButtonComponent} from '../../../shared/components/button/button.component';
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { APP_CONFIG } from '../../../core/config/app.config';
 
 @Component({
   selector: 'app-login',
   imports: [
-    ButtonComponent,
     ReactiveFormsModule
   ],
   templateUrl: './login.component.html',
@@ -21,7 +20,12 @@ export class LoginComponent {
   appName = APP_CONFIG.name;
   appSubName = APP_CONFIG.subName;
 
+  constructor(private router: Router) {}
+
   onSubmit() {
-    console.log(this.loginForm.value);
+    if (this.loginForm.valid) {
+      console.log("Email Login:", this.loginForm.value);
+      this.router.navigate(['/dashboard']);
+    }
   }
 }

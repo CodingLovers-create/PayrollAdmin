@@ -1,0 +1,51 @@
+<div class="bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm flex flex-col gap-4 relative overflow-hidden h-full">
+  @if (borderType === 'amber') {
+    <div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-400"></div>
+  } @else if (borderType === 'teal') {
+    <div class="absolute left-0 top-0 bottom-0 w-1 bg-teal-400"></div>
+  }
+
+  <div class="flex justify-between items-center">
+    @if (flagCode) {
+      <img [src]="'https://flagcdn.com/' + flagCode + '.svg'" class="w-8 h-[22px] rounded-[3px] object-cover shadow-sm" [alt]="countryCode + ' flag'">
+    } @else {
+      <div class="w-8 h-8 bg-primary-fixed text-primary font-bold rounded flex items-center justify-center text-sm">{{ countryCode }}</div>
+    }
+    
+    <span class="font-label-md text-[9px] px-2 py-0.5 rounded-full border tracking-wide uppercase"
+      [ngClass]="{
+        'text-emerald-700 bg-emerald-50 border-emerald-200': statusType === 'success',
+        'text-amber-700 bg-amber-50 border-amber-200': statusType === 'warning',
+        'text-error bg-error-container border-error-container': statusType === 'danger'
+      }">
+      {{ status }}
+    </span>
+  </div>
+  
+  <div>
+    <h3 class="font-bold text-base text-on-surface leading-tight">{{ countryName }}</h3>
+    <p class="text-xs text-on-surface-variant mt-1">{{ employees }} Employees</p>
+  </div>
+  
+  <div class="h-px w-full bg-outline-variant opacity-40 my-0.5"></div>
+  
+  <div [ngClass]="{'flex justify-between items-end': showReviewButton}">
+    <div>
+      <p class="font-label-md text-[9px] text-outline uppercase tracking-wider mb-1">Total Cost</p>
+      @if (totalCostSubValue) {
+        <div class="flex items-baseline gap-1">
+          <p class="font-bold text-lg text-on-surface leading-none">{{ totalCostValue }}</p>
+          <p class="font-bold text-sm text-on-surface leading-none">{{ totalCostSubValue }}</p>
+        </div>
+      } @else {
+        <p class="font-bold text-lg text-on-surface leading-none">{{ totalCostValue }}</p>
+      }
+    </div>
+    
+    @if (showReviewButton) {
+      <button class="bg-primary text-on-primary text-[11px] font-semibold px-3 py-1.5 rounded-lg hover:bg-primary-container transition-colors shadow-sm">
+        Review
+      </button>
+    }
+  </div>
+</div>

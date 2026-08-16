@@ -20,17 +20,18 @@
       <form class="flex flex-col gap-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-col gap-1">
           <label for="email" class="text-sm capitalize tracking-wide">email</label>
-          <input type="email" class="border border-gray-800 outline-none px-2 py-2 text-sm" formControlName="email"/>
+          <input type="email" class="border border-gray-800 outline-none px-3 py-2.5 text-sm rounded-lg" formControlName="email"/>
         </div>
         <div class="flex flex-col gap-1">
           <label for="password" class="text-sm capitalize tracking-wide">password</label>
-          <input type="password" class="border border-gray-800 outline-none px-2 py-2 text-sm"
+          <input type="password" class="border border-gray-800 outline-none px-3 py-2.5 text-sm rounded-lg"
                  formControlName="password"/>
         </div>
         <div class="mt-4">
-          <button class="h-full bg-blue-950 text-white w-full uppercase py-3 text-xs">login</button>
+          <button class="h-full bg-blue-950 text-white w-full uppercase py-3 text-xs rounded-lg hover:bg-blue-900 transition-colors">login</button>
         </div>
       </form>
+      
       <div class="text-sm flex justify-center gap-2 items-center py-4 text-gray-400 font-normal">
         <div
           class="size-4 bg-gray-400"
