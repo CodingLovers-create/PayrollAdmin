@@ -1,1 +1,9 @@
-<p>empty-state works!</p>
+<div class="flex flex-col items-center justify-center gap-1 rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-16 text-center shadow-sm">
+  <div class="mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-surface-container-low">
+    <span class="material-symbols-outlined text-[28px] text-outline">{{ icon }}</span>
+  </div>
+  <h3 class="font-headline-sm text-headline-sm text-on-surface">{{ title }}</h3>
+  @if (message) {
+    <p class="font-body-sm max-w-sm text-body-sm text-on-surface-variant">{{ message }}</p>
+  }
+</div>

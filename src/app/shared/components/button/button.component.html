@@ -1,1 +1,7 @@
-<p>button works!</p>
+<button
+      [class]="buttonClasses"
+      [disabled]="disabled"
+      (click)="onClick()"
+    >
+      {{ label }}
+    </button>

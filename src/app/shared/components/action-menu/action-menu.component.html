@@ -1,0 +1,31 @@
+<div class="relative">
+  <button
+    type="button"
+    class="flex h-8 w-8 items-center justify-center rounded-lg
+           text-slate-500 transition
+           hover:bg-slate-100 hover:text-slate-700"
+    (click)="toggleMenu()"
+  >
+    ⋮
+  </button>
+
+  @if (isOpen) {
+    <div
+      class="absolute right-0 z-20 mt-2 w-36 rounded-lg
+             border border-slate-200 bg-white py-1 shadow-lg"
+    >
+      @for (option of options; track option.value) {
+        <button
+          type="button"
+          class="w-full px-4 py-2 text-left text-sm
+                 transition hover:bg-slate-50"
+          [class.text-red-600]="option.danger"
+          [class.text-slate-700]="!option.danger"
+          (click)="selectOption(option)"
+        >
+          {{ option.label }}
+        </button>
+      }
+    </div>
+  }
+</div>

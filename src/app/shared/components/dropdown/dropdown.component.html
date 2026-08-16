@@ -1,25 +1,41 @@
-<div class="relative inline-block text-left w-full sm:w-auto">
-  <button 
-    (click)="toggleDropdown()"
-    type="button" 
-    class="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors whitespace-nowrap">
-    {{ selectedLabel }}
-    <span class="material-symbols-outlined text-[18px]">expand_more</span>
-  </button>
+<div class="relative w-48">
+  <select
+    [value]="selectedValue"
+    (change)="onSelectionChange($event)"
+    class="
+      w-full appearance-none rounded-lg
+      border border-slate-300
+      bg-white
+      px-3 py-2.5 pr-10
+      text-sm font-medium text-slate-700
+      shadow-sm
+      outline-none
+      transition-all duration-200
+      hover:border-slate-400
+      focus:border-cyan-500
+      focus:ring-4 focus:ring-cyan-100
+    "
+  >
+    @for (option of options; track option.value) {
+      <option [value]="option.value">
+        {{ option.label }}
+      </option>
+    }
+  </select>
 
-  @if (isOpen) {
-    <div class="absolute right-0 mt-2 w-48 rounded-xl shadow-lg bg-surface-container-lowest border border-outline-variant z-50 overflow-hidden">
-      <div class="py-1" role="menu" aria-orientation="vertical">
-        @for (option of options; track option.value) {
-          <a 
-            (click)="selectOption(option)"
-            class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low cursor-pointer transition-colors"
-            [ngClass]="{'bg-primary/10 text-primary font-medium': option.value === selectedValue}"
-            role="menuitem">
-            {{ option.label }}
-          </a>
-        }
-      </div>
-    </div>
-  }
+  <!-- Arrow -->
+  <svg
+    class="pointer-events-none absolute right-3 top-1/2 h-4 w-4
+           -translate-y-1/2 text-slate-500"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M19 9l-7 7-7-7"
+    />
+  </svg>
 </div>

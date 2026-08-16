@@ -1,1 +1,46 @@
-<p>pagination works!</p>
+<div class="flex items-center justify-between border-t border-slate-200 px-4 py-3">
+
+  <!-- Previous -->
+  <button
+    type="button"
+    class="rounded-lg border border-slate-300 bg-white px-3 py-2
+           text-sm font-medium text-slate-600
+           transition hover:bg-slate-50
+           disabled:cursor-not-allowed disabled:opacity-40"
+    [disabled]="currentPage === 1"
+    (click)="previousPage()"
+  >
+    <
+  </button>
+
+  <!-- Page numbers -->
+  <div class="flex items-center gap-1">
+    @for (page of [].constructor(totalPages); track $index) {
+      <button
+        type="button"
+        class="h-9 w-9 rounded-lg text-sm font-medium transition"
+        [class.bg-slate-900]="currentPage === $index + 1"
+        [class.text-white]="currentPage === $index + 1"
+        [class.text-slate-600]="currentPage !== $index + 1"
+        [class.hover:bg-slate-100]="currentPage !== $index + 1"
+        (click)="goToPage($index + 1)"
+      >
+        {{ $index + 1 }}
+      </button>
+    }
+  </div>
+
+  <!-- Next -->
+  <button
+    type="button"
+    class="rounded-lg border border-slate-300 bg-white px-3 py-2
+           text-sm font-medium text-slate-600
+           transition hover:bg-slate-50
+           disabled:cursor-not-allowed disabled:opacity-40"
+    [disabled]="currentPage === totalPages"
+    (click)="nextPage()"
+  >
+   >
+  </button>
+
+</div>

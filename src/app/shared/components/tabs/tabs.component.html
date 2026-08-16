@@ -1,1 +1,17 @@
-<p>tabs works!</p>
+<div class="border-b border-outline-variant">
+  <nav aria-label="Tabs" class="hide-scrollbar -mb-px flex gap-8 overflow-x-auto">
+    @for (tab of tabs; track tab.value) {
+      <button
+        type="button"
+        class="whitespace-nowrap border-b-2 px-1 py-4 font-label-md text-label-md transition-colors"
+        [class]="tab.value === activeTab
+          ? 'border-primary text-primary font-bold'
+          : 'border-transparent text-on-surface-variant hover:border-outline-variant hover:text-primary'"
+        [attr.aria-current]="tab.value === activeTab ? 'page' : null"
+        (click)="selectTab(tab.value)"
+      >
+        {{ tab.label }}
+      </button>
+    }
+  </nav>
+</div>

@@ -17,7 +17,7 @@ import { DatePickerComponent } from '../../shared/components/date-picker/date-pi
 })
 export class DashboardComponent implements OnInit {
   selectedMonth = '2026-08';
-  selectedCountry?: string;
+  selectedCountry = '';
 
   countryOptions: DropdownOption[] = [
     { label: 'INDIA', value: 'IN' },
