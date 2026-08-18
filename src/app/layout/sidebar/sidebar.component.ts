@@ -2,6 +2,15 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { APP_CONFIG } from '../../core/config/app.config';
 
+export interface SidebarItem {
+  label: string;
+  route?: string;
+  icon?: string;
+  isHeader?: boolean;
+  isExpanded?: boolean;
+  children?: SidebarItem[];
+}
+
 @Component({
   selector: 'app-sidebar',
   imports: [RouterLink, RouterLinkActive],
@@ -10,9 +19,15 @@ import { APP_CONFIG } from '../../core/config/app.config';
 })
 export class SidebarComponent {
 
+  toggleSubmenu(item: SidebarItem) {
+    if (item.isHeader && item.children) {
+      item.isExpanded = !item.isExpanded;
+    }
+  }
+
   appName = APP_CONFIG.name;
   appSubName = APP_CONFIG.subName;
-  sidebarLinks = [
+  sidebarLinks: SidebarItem[] = [
     {
       label: 'Dashboard',
       route: '/dashboard',
@@ -33,9 +48,16 @@ export class SidebarComponent {
       icon: 'assessment'
     },
     {
-      label: 'Administration',
-      route: '/administration',
-      icon: 'admin_panel_settings'
+      label: 'ADMINISTRATION',
+      icon: 'admin_panel_settings',
+      isHeader: true,
+      isExpanded: true,
+      children: [
+        { label: 'Users', route: '/administration/users' },
+        { label: 'Roles', route: '/administration/roles' },
+        { label: 'Permissions', route: '/administration/permissions' },
+        { label: 'Audit Logs', route: '/administration/audit-logs' }
+      ]
     }
   ];
 

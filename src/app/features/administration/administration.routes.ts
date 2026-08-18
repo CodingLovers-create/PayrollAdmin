@@ -23,6 +23,13 @@ export const ADMINISTRATION_ROUTES: Routes = [
   },
 
   {
+    path: 'permissions',
+    loadComponent: () =>
+      import('./permissions/permissions.component')
+        .then(m => m.PermissionsComponent)
+  },
+
+  {
     path: 'audit-logs',
     loadComponent: () =>
       import('./audit-logs/audit-logs.component')

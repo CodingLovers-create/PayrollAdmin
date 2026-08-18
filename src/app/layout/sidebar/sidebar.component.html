@@ -1,21 +1,53 @@
 <nav class="hidden lg:flex flex-col fixed left-0 top-0 h-full w-64 bg-surface-container-lowest border-r border-outline-variant shadow-sm z-40">
   <div class="navLinks flex items-center px-6 h-20 border-b border-outline-variant">
     <div class="flex flex-col">
-      <p class="font-headline-md text-headline-md font-bold text-primary leading-tight">{{appName}}</p>
-      <p class="font-label-md text-label-md text-secondary uppercase tracking-wider">{{appSubName}}</p>
+      <p class="font-headline-md text-headline-md font-bold text-primary leading-tight tracking-tight">{{appName}}</p>
+      <p class="text-[10px] font-medium text-secondary uppercase tracking-widest mt-0.5">{{appSubName}}</p>
     </div>
   </div>
 
   <div class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
-    @for(sidebar of sidebarLinks; track sidebar.label){
-      <a [routerLink]="sidebar.route"
-        routerLinkActive
-        #rla="routerLinkActive"
-        class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-colors duration-150"
-        [class]="rla.isActive ? activeLinkClasses : inactiveLinkClasses">
-        <span class="material-symbols-outlined">{{sidebar.icon}}</span>
-        {{sidebar.label}}
-      </a>
+    @for(item of sidebarLinks; track item.label) {
+      @if(item.isHeader) {
+        <button 
+          (click)="toggleSubmenu(item)"
+          class="w-full flex items-center justify-between px-4 py-3 rounded-lg font-label-md text-label-md text-secondary hover:text-primary hover:bg-surface-container-high transition-colors cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+          <div class="flex items-center gap-3">
+            @if(item.icon) {
+              <span class="material-symbols-outlined">{{item.icon}}</span>
+            }
+            <span class="capitalize">{{ item.label.toLowerCase() }}</span>
+          </div>
+          <span class="material-symbols-outlined text-[18px] transition-transform duration-200"
+                [class.rotate-180]="item.isExpanded">
+            expand_more
+          </span>
+        </button>
+        @if(item.children && item.isExpanded) {
+          <div class="flex flex-col gap-1 mt-1">
+            @for(child of item.children; track child.label) {
+              <a [routerLink]="child.route"
+                routerLinkActive=""
+                #rla="routerLinkActive"
+                class="flex items-center gap-3 pl-[52px] pr-4 py-2.5 rounded-lg font-label-md text-label-md transition-colors duration-150"
+                [class]="rla.isActive ? activeLinkClasses : inactiveLinkClasses">
+                {{child.label}}
+              </a>
+            }
+          </div>
+        }
+      } @else {
+        <a [routerLink]="item.route"
+          routerLinkActive=""
+          #rla="routerLinkActive"
+          class="flex items-center gap-3 px-4 py-3 rounded-lg font-label-md text-label-md transition-colors duration-150"
+          [class]="rla.isActive ? activeLinkClasses : inactiveLinkClasses">
+          @if(item.icon) {
+            <span class="material-symbols-outlined">{{item.icon}}</span>
+          }
+          {{item.label}}
+        </a>
+      }
     }
   </div>
 </nav>
